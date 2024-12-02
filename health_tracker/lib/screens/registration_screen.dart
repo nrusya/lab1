@@ -18,8 +18,7 @@ class RegistrationScreenState extends State<RegistrationScreen> {
   final TextEditingController _passwordController = TextEditingController();
 
   void _handleRegistration() {
-    // Handle registration logic here
-  }
+      }
 
   void _navigateToLogin() {
     Navigator.pop(context);
