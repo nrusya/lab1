@@ -1,66 +1,94 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(const MainApp());
+}
 
-class MyApp extends StatelessWidget {
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyHomePage(),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Health Tracker App'),
+        ),
+        body: ActivityInputField(),
+      ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class ActivityInputField extends StatefulWidget {
+  const ActivityInputField({super.key});
+
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _ActivityInputFieldState createState() => _ActivityInputFieldState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  final TextEditingController _controller = TextEditingController();
+class _ActivityInputFieldState extends State<ActivityInputField> {
+  String _activityName = '';
+  String _activityIcon = '🏃‍♂️';
 
-  void _incrementCounter() {
+  void _updateActivityIcon(String name) {
     setState(() {
-      if (_controller.text == "Avada Kedavra") {
-        _counter = 0;
-      } else {
-        int? value = int.tryParse(_controller.text);
-        if (value != null) {
-          _counter += value;
-        }
+      _activityName = name;
+      switch (name.toLowerCase()) {
+        case 'running':
+          _activityIcon = '🏃‍♂️';
+          break;
+        case 'cycling':
+          _activityIcon = '🚴‍♂️';
+          break;
+        case 'swimming':
+          _activityIcon = '🏊‍♂️';
+          break;
+        default:
+          _activityIcon = '❓';
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Flutter Interactive Input'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: _controller,
-              decoration: InputDecoration(
-                labelText: 'Enter a number or magic word',
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          const Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text(
+              'Enter Activity Type:',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ),
+          TextField(
+            onChanged: _updateActivityIcon,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
               ),
+              labelText: 'Activity',
+              prefixIcon: const Icon(Icons.fitness_center),
             ),
-            SizedBox(height: 20),
-            Text(
-              'Counter: $_counter',
-              style: TextStyle(fontSize: 24),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _incrementCounter,
-              child: Text('Update Counter'),
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 20),
+          Text(
+            _activityIcon,
+            style: const TextStyle(fontSize: 100, color: Colors.greenAccent),
+          ),
+          Text(
+            _activityName.isEmpty
+                ? 'No activity entered'
+                : _activityName.toUpperCase(),
+            style: const TextStyle(
+                fontSize: 24,
+                fontStyle: FontStyle.normal,
+                color: Color.fromRGBO(100, 100, 100, 0.5)),
+          ),
+        ],
       ),
     );
   }
