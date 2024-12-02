@@ -26,20 +26,20 @@ class CustomTextField extends StatelessWidget {
       onChanged: onChanged,
       decoration: InputDecoration(
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12), // Slightly more rounded corners
+          borderRadius: BorderRadius.circular(12), 
         ),
         labelText: label,
         labelStyle: const TextStyle(
-          color: Colors.green, // Green color for health theme
+          color: Colors.green, 
         ),
         prefixIcon: Icon(
           icon,
-          color: Colors.green, // Matching icon color to theme
+          color: Colors.green, 
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(
-            color: Colors.green, // Green border when focused
+            color: Colors.green, 
             width: 2,
           ),
         ),
